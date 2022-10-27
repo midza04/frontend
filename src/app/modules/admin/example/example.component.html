@@ -1,0 +1,68 @@
+
+<div class="flex flex-col flex-auto min-w-0">
+
+    <div  class="flex-auto p-6 sm:p-10">
+
+        <div  class="w-full relative max-w-screen-xl mx-auto mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+
+            <mat-stepper [linear]="false" #stepper>
+                <mat-step label="Search" state="search" [stepControl]="firstFormGroup">
+                    <kendo-grid [data]="gridData"
+                                [kendoGridBinding]="gridData"
+                                [filterable]="true"
+                                [pageable]="true"
+                                [pageSize]="5"
+                                [sortable]="true"
+                    >
+                        <kendo-grid-column title="Actions" [width]="300">
+                            <ng-template kendoGridCellTemplate let-rowIndex="rowIndex">
+                                <button class="k-button" (click)="goToManage(stepper,rowIndex)" >More actions</button>
+                            </ng-template>
+                        </kendo-grid-column>
+                        <kendo-grid-column  field="firstName" title="FirstName"> </kendo-grid-column>
+                        <kendo-grid-column field="surname" title="Surname"> </kendo-grid-column>
+                        <kendo-grid-column field="idType" title="ID Type"> </kendo-grid-column>
+                        <kendo-grid-column filter="date"  field="dateOfBirth" title="DOB"> </kendo-grid-column>
+                    </kendo-grid>
+
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup"  state="edited" label="MANAGE">
+                    <form [formGroup]="secondFormGroup">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                                   required>
+                        </mat-form-field>
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperNext>Next</button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step label="ADD" state="add">
+                    <ng-template matStepLabel>ADD</ng-template>
+                    <p>You are now done.</p>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                    </div>
+                </mat-step>
+
+                <ng-template matStepperIcon="search">
+                    <mat-icon>search</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="add">
+                    <mat-icon>add</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="edited">
+                    <mat-icon>edit</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="done">
+                    <mat-icon>add</mat-icon>
+                </ng-template>
+
+                <ng-template matStepperIcon="edit"></ng-template>
+            </mat-stepper>
+        </div>
+    </div>
+</div>
